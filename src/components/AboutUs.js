@@ -9,8 +9,8 @@ const AboutUs = () => {
             <p>Contributors to this project:</p>
 
             <ul>
-                <li><a href="https://www.linkedin.com/in/marianopeyregne/" target="_blank">Mariano G Peyregne</a></li>
-                <li><a href="https://www.linkedin.com/in/fedeevilla/" target="_blank">Federico Villa</a></li>
+                <li><a href="https://www.linkedin.com/in/marianopeyregne/" rel="noopener noreferrer" target="_blank">Mariano G Peyregne</a></li>
+                <li><a href="https://www.linkedin.com/in/fedeevilla/" rel="noopener noreferrer" target="_blank">Federico Villa</a></li>
             </ul>
         </div>
     );
