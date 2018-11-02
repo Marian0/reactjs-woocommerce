@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {Layout, Menu, Icon, Spin} from 'antd';
+import {Layout, Menu, Spin} from 'antd';
 import axios from 'axios';
 import config from "../../config";
 
-const {SubMenu} = Menu;
 const {Sider} = Layout;
 
 
@@ -34,7 +33,9 @@ class SideMenu extends Component {
 
     componentDidMount() {
 
-        axios.get(`${config.endpoint}products/categories?perpage=30&consumer_key=${config.key}&consumer_secret=${config.secret}`)
+        setTimeout(() => {
+
+        axios.get(`${config.endpoint}products/categories?per_page=30&consumer_key=${config.key}&consumer_secret=${config.secret}`)
             .then(response => {
 
                 this.setState({
@@ -44,6 +45,7 @@ class SideMenu extends Component {
 
                 console.log(response.data);
             });
+        }, 2000);
 
     }
 
