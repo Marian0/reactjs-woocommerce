@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Layout, Menu, Spin} from 'antd';
 import axios from 'axios';
 import config from "../../config";
+import {Link} from 'react-router-dom';
 
 const {Sider} = Layout;
 
@@ -33,19 +34,15 @@ class SideMenu extends Component {
 
     componentDidMount() {
 
-        setTimeout(() => {
+        axios.get(`${config.endpoint}products/categories?per_page=30&consumer_key=${config.key}&consumer_secret=${config.secret}`)
+            .then(response => {
 
-            axios.get(`${config.endpoint}products/categories?per_page=30&consumer_key=${config.key}&consumer_secret=${config.secret}`)
-                .then(response => {
-
-                    this.setState({
-                        categories: response.data,
-                        loading: false
-                    });
-
+                this.setState({
+                    categories: response.data,
+                    loading: false
                 });
-        }, 2000);
 
+            });
     }
 
     renderCategories = () => {
@@ -58,7 +55,7 @@ class SideMenu extends Component {
             );
         }
 
-        if (! this.state.categories || this.state.categories.length === 0) {
+        if (!this.state.categories || this.state.categories.length === 0) {
             return <p>No categories to show</p>
         }
 
@@ -73,11 +70,13 @@ class SideMenu extends Component {
                     this.state.categories.map((category) => {
                         return (
                             <Menu.Item key={category.id}>
-                                {
-                                    category.image &&
-                                    <img src={category.image.src} alt={category.name} style={categoryImage}/>
-                                }
-                                {category.name}
+                                <Link to={`/category/${category.id}`}>
+                                    {
+                                        category.image &&
+                                        <img src={category.image.src} alt={category.name} style={categoryImage}/>
+                                    }
+                                    {category.name}
+                                </Link>
                             </Menu.Item>
                         );
                     })
@@ -91,7 +90,10 @@ class SideMenu extends Component {
     render() {
 
         return (
-            <Sider width={400} style={{background: '#fff'}}>
+            <Sider width={400}
+                   style={{background: '#fff'}}
+                   breakpoint="lg"
+            >
 
                 <h2>Categories</h2>
 

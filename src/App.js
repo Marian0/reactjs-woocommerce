@@ -5,6 +5,7 @@ import {Layout} from 'antd';
 import AppHeader from './components/Layout/AppHeader';
 import SideMenu from './components/Layout/SideMenu';
 import AboutUs from './components/AboutUs';
+import ProductList from './components/ProductList';
 
 
 const {Content, Footer} = Layout;
@@ -27,6 +28,7 @@ class App extends Component {
                                 <SideMenu/>
                                 <Content style={{padding: '0 24px', minHeight: 280}}>
                                     <Route path="/" exact component={Index}/>
+                                    <Route path="/category/:id" component={ProductList}/>
                                     <Route path="/about/" component={AboutUs}/>
                                     <Route path="/contact/" component={Contact}/>
                                 </Content>
