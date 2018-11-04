@@ -7,7 +7,7 @@ const {Sider} = Layout;
 
 
 const SideStyle = {
-   textAlign: 'center'
+    textAlign: 'center'
 };
 
 const categoryImage = {
@@ -35,19 +35,58 @@ class SideMenu extends Component {
 
         setTimeout(() => {
 
-        axios.get(`${config.endpoint}products/categories?per_page=30&consumer_key=${config.key}&consumer_secret=${config.secret}`)
-            .then(response => {
+            axios.get(`${config.endpoint}products/categories?per_page=30&consumer_key=${config.key}&consumer_secret=${config.secret}`)
+                .then(response => {
 
-                this.setState({
-                    categories: response.data,
-                    loading: false
+                    this.setState({
+                        categories: response.data,
+                        loading: false
+                    });
+
                 });
-
-                console.log(response.data);
-            });
         }, 2000);
 
     }
+
+    renderCategories = () => {
+
+        if (this.state.loading) {
+            return (
+                <div style={SideStyle}>
+                    <Spin size="large" tip="Loading Categories..."/>
+                </div>
+            );
+        }
+
+        if (! this.state.categories || this.state.categories.length === 0) {
+            return <p>No categories to show</p>
+        }
+
+        return (
+            <Menu
+                mode="inline"
+                defaultSelectedKeys={['1']}
+                defaultOpenKeys={['sub1']}
+                style={{height: '100%'}}
+            >
+                {
+                    this.state.categories.map((category) => {
+                        return (
+                            <Menu.Item key={category.id}>
+                                {
+                                    category.image &&
+                                    <img src={category.image.src} alt={category.name} style={categoryImage}/>
+                                }
+                                {category.name}
+                            </Menu.Item>
+                        );
+                    })
+                }
+
+            </Menu>
+        );
+
+    };
 
     render() {
 
@@ -56,45 +95,12 @@ class SideMenu extends Component {
 
                 <h2>Categories</h2>
 
-                {
-                    this.state.loading &&
-
-                    <div style={SideStyle}>
-                        <Spin size="large" tip="Loading Categories..."/>
-                    </div>
-
-                }
-
-
-                {
-                    !this.state.loading &&
-                    <Menu
-                        mode="inline"
-                        defaultSelectedKeys={['1']}
-                        defaultOpenKeys={['sub1']}
-                        style={{height: '100%'}}
-                    >
-                        {
-                            this.state.categories.map((category) => {
-                                return (
-                                        <Menu.Item key={category.id}>
-                                            {
-                                                category.image &&
-                                                <img src={category.image.src} alt={category.name} style={categoryImage}/>
-                                            }
-                                            {category.name}
-                                        </Menu.Item>
-                                    );
-                            })
-                        }
-
-                    </Menu>
-                }
+                {this.renderCategories()}
 
             </Sider>
 
         );
     }
-};
+}
 
 export default SideMenu;
