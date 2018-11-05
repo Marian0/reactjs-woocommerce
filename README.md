@@ -10,8 +10,8 @@ You need to have a Woocommerce instance running and also created a ``client_id``
 
 - Clone this repository
 - Run ``npm install``
-- Copy default config file ``cp config.default.js config.js``
-- Edit ``config.js`` and fill with your generated API keys
+- Copy default config file ``cp .env.default .env``
+- Edit ``.env`` and fill with your generated API keys
 - Save and run ``npm start``
 
 ## Development

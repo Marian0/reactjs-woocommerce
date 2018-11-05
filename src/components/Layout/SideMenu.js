@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Layout, Menu, Spin} from 'antd';
 import axios from 'axios';
-import config from "../../config";
 import {Link} from 'react-router-dom';
 
 const {Sider} = Layout;
@@ -34,7 +33,7 @@ class SideMenu extends Component {
 
     componentDidMount() {
 
-        axios.get(`${config.endpoint}products/categories?per_page=30&consumer_key=${config.key}&consumer_secret=${config.secret}`)
+        axios.get(`${process.env.REACT_APP_WOOCOMMERCE_API_ENDPOINT}products/categories?per_page=30&consumer_key=${process.env.REACT_APP_WOOCOMMERCE_API_CLIENT}&consumer_secret=${process.env.REACT_APP_WOOCOMMERCE_API_SECRET}`)
             .then(response => {
 
                 this.setState({
