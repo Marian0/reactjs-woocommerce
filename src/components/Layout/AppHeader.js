@@ -16,7 +16,7 @@ const AppHeader = () => {
             <Menu
                 theme="dark"
                 mode="horizontal"
-                defaultSelectedKeys={['2']}
+                defaultSelectedKeys={['home']}
                 style={{lineHeight: '64px'}}
             >
                 <Menu.Item key="home"><Link to="/">Home</Link></Menu.Item>

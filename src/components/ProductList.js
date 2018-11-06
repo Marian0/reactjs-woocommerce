@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import axios from "axios/index";
-import {Spin, List, Card, Icon } from 'antd';
+import {Spin, List, Card, Button} from 'antd';
+import { connect } from 'react-redux';
+import {addToCart} from "../actions";
 
-const { Meta } = Card;
+const {Meta} = Card;
 
 class ProductList extends Component {
 
@@ -58,18 +60,19 @@ class ProductList extends Component {
 
         return (
             <List
-                grid={{ gutter: 16, column: 3 }}
+                grid={{gutter: 16, column: 3}}
                 dataSource={this.state.products}
                 renderItem={item => (
                     <List.Item>
                         <Card
-                            style={{ width: 300 }}
-                            cover={<img alt="example" src={item.images[0].src} />}
-                            actions={[<Icon type="plus" />, <Icon type="minus" />, <Icon type="ellipsis" />]}
+                            cover={<img alt="example" src={item.images[0].src}/>}
+                            actions={[
+                                <Button type="primary" icon="plus" onClick={() => this.props.addToCart(item) }>Add to Cart</Button>
+                            ]}
                         >
                             <Meta
                                 title={item.name}
-                                description={item.price}
+                                description={`$ ${item.price}`}
                             />
                         </Card>
                     </List.Item>
@@ -91,4 +94,14 @@ class ProductList extends Component {
 }
 
 
-export default ProductList;
+const mapDispatchToProps = (dispatch) => {
+
+    return {
+        addToCart(product) {
+            dispatch(addToCart(product));
+        }
+    }
+
+};
+
+export default connect(null, mapDispatchToProps)(ProductList);

@@ -62,7 +62,6 @@ class SideMenu extends Component {
             <Menu
                 mode="inline"
                 defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub1']}
                 style={{height: '100%'}}
             >
                 {
@@ -89,9 +88,8 @@ class SideMenu extends Component {
     render() {
 
         return (
-            <Sider width={400}
+            <Sider width={220}
                    style={{background: '#fff'}}
-                   breakpoint="lg"
             >
 
                 <h2>Categories</h2>
