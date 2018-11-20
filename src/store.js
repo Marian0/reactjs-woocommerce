@@ -9,7 +9,17 @@ import thunk from 'redux-thunk';
  */
 const cart = (state = [], action) => {
 
-    if (action.type === 'ADD_TO_CART') {
+    if (action.type === 'LOAD_CART_PRODUCTS') {
+
+        try {
+            return JSON.parse(localStorage.getItem('cart')) || [];
+        } catch (e) {
+            localStorage.setItem('cart', JSON.stringify([]));
+            return [];
+        }
+
+
+    } else if (action.type === 'ADD_TO_CART') {
 
         const {product} = action;
         let exists = false;
@@ -54,7 +64,28 @@ const loger = (store) => (next) => (action) => {
 };
 
 
+const updateLocalStorageCart = (store) => (next) => (action) => {
+    let result = next(action);
+
+    if (action.type === 'ADD_TO_CART' ||
+        action.type === 'REMOVE_FROM_CART') {
+
+        try {
+            localStorage.setItem('cart', JSON.stringify(store.getState()['cart']));
+        } catch (e) {
+
+            console.log("Error trying to set cart", e);
+            localStorage.setItem('cart', JSON.stringify([]));
+
+        }
+
+    }
+    return result;
+};
+
+
+
 export default createStore(combineReducers({
     cart,
-}), applyMiddleware(loger, thunk));
+}), applyMiddleware(loger, thunk, updateLocalStorageCart));
 

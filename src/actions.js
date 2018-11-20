@@ -34,5 +34,11 @@ const substractProduct = (product) => {
 
 };
 
+const loadCartProducts = () => {
+    return {
+        type: 'LOAD_CART_PRODUCTS',
+    }
+};
 
-export {addToCart, removeFromCart, substractProduct};
+
+export {addToCart, removeFromCart, substractProduct, loadCartProducts};

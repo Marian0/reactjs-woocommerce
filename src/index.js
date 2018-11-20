@@ -7,8 +7,11 @@ import * as serviceWorker from './serviceWorker';
 
 import store from './store';
 import {Provider} from 'react-redux';
+import {loadCartProducts} from "./actions";
 
 require('dotenv').config();
+
+store.dispatch(loadCartProducts());
 
 ReactDOM.render(
     <Provider store={store}>

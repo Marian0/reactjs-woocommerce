@@ -2,12 +2,19 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {removeFromCart} from "../actions";
 import {Affix, Card, List, Avatar, Button} from 'antd';
+import { Link } from 'react-router-dom';
 
 class ShoppingCart extends Component {
 
-    constructor(props) {
-        super(props);
-    }
+
+    renderCheckoutButton = (total) => {
+
+        if (total > 0) {
+            return <Link to="/checkout/">Checkout</Link>;
+        }
+
+        return <p>Minumum amount to checkout = 500</p>;
+    };
 
     renderProductList = () => {
 
@@ -24,8 +31,8 @@ class ShoppingCart extends Component {
                     dataSource={this.props.cart}
                     renderItem={item => (
                         <List.Item actions={[
-                            <Button type="primary" icon="minus" />,
-                            <Button type="primary" icon="close" onClick={() => this.props.removeFromCart(item)} />
+                            <Button type="primary" icon="minus"/>,
+                            <Button type="primary" icon="close" onClick={() => this.props.removeFromCart(item)}/>
                         ]}>
                             <List.Item.Meta
                                 avatar={<Avatar src={item.images[0].src}/>}
@@ -36,9 +43,9 @@ class ShoppingCart extends Component {
                     )}
                 />
                 <h2>Total: $ {total}</h2>
+                {this.renderCheckoutButton(total)}
             </Fragment>
         );
-
     };
 
     render() {
@@ -69,4 +76,5 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);
+export default
+connect(mapStateToProps, mapDispatchToProps)(ShoppingCart);

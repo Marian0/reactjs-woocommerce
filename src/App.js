@@ -6,6 +6,7 @@ import AppHeader from './components/Layout/AppHeader';
 import SideMenu from './components/Layout/SideMenu';
 import AboutUs from './components/AboutUs';
 import Shopping from "./components/Shopping";
+import Checkout from "./components/Checkout";
 
 
 const {Content, Footer} = Layout;
@@ -30,6 +31,7 @@ class App extends Component {
                                     <Route path="/category/:id" component={Shopping}/>
                                     <Route path="/about/" component={AboutUs}/>
                                     <Route path="/contact/" component={Contact}/>
+                                    <Route path="/checkout/" component={Checkout}/>
                                 </Content>
                             </Layout>
                         </Content>
