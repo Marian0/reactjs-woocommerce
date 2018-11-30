@@ -56,10 +56,10 @@ const cart = (state = [], action) => {
  * @param store
  * @returns {function(*): function(*=): *}
  */
-const loger = (store) => (next) => (action) => {
-    console.log("dispatching", action);
+const logger = (store) => (next) => (action) => {
+    // console.log("dispatching", action);
     let result = next(action);
-    console.log("next state", store.getState());
+    // console.log("next state", store.getState());
     return result;
 };
 
@@ -87,5 +87,5 @@ const updateLocalStorageCart = (store) => (next) => (action) => {
 
 export default createStore(combineReducers({
     cart,
-}), applyMiddleware(loger, thunk, updateLocalStorageCart));
+}), applyMiddleware(logger, thunk, updateLocalStorageCart));
 
