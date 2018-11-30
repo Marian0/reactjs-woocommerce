@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Layout, Menu, Spin} from 'antd';
-import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {getCategories} from "../../remotes/woocommerce";
 
 const {Sider} = Layout;
 
@@ -33,8 +33,8 @@ class SideMenu extends Component {
 
     componentDidMount() {
 
-        axios.get(`${process.env.REACT_APP_WOOCOMMERCE_API_ENDPOINT}products/categories?per_page=30&consumer_key=${process.env.REACT_APP_WOOCOMMERCE_API_CLIENT}&consumer_secret=${process.env.REACT_APP_WOOCOMMERCE_API_SECRET}`)
-            .then(response => {
+
+            getCategories().then(response => {
 
                 this.setState({
                     categories: response.data,

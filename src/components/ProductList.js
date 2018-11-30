@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import axios from "axios/index";
 import {Spin, List, Card, Button} from 'antd';
 import { connect } from 'react-redux';
 import {addToCart} from "../actions";
+import {getProductsByCategory} from "../remotes/woocommerce";
 
 const {Meta} = Card;
 
@@ -27,15 +27,14 @@ class ProductList extends Component {
             category_id
         });
 
-        axios.get(`${process.env.REACT_APP_WOOCOMMERCE_API_ENDPOINT}products?category=${category_id}&per_page=30&consumer_key=${process.env.REACT_APP_WOOCOMMERCE_API_CLIENT}&consumer_secret=${process.env.REACT_APP_WOOCOMMERCE_API_SECRET}`)
-            .then(response => {
+        getProductsByCategory(category_id).then(response => {
 
-                this.setState({
-                    products: response.data,
-                    loading: false
-                });
-
+            this.setState({
+                products: response.data,
+                loading: false
             });
+
+        });
     };
 
     componentDidUpdate() {
