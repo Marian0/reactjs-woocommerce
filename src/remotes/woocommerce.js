@@ -18,7 +18,6 @@ let defaultHeaders = {
  * @returns {AxiosPromise<any>}
  */
 const getCategories = () => {
-
     defaultHeaders.params = {
         per_page: 100
     };
@@ -38,7 +37,7 @@ const getProductsByCategory = (category_id) => {
         per_page: 100
     };
 
-    return axios.get(`${process.env.REACT_APP_WOOCOMMERCE_API_ENDPOINT}wp-json/wc/v3/products`, defaultHeaders)
+    return axios.get(`${process.env.REACT_APP_WOOCOMMERCE_API_ENDPOINT}/wp-json/wc/v3/products`, defaultHeaders)
 };
 
 /**
@@ -46,7 +45,7 @@ const getProductsByCategory = (category_id) => {
  * @returns {AxiosPromise<any>}
  */
 const getPaymentInfo = () => {
-    return axios.get('https://www.repartienda.com/wp-json/wc/v3/payment_gateways', defaultHeaders);
+    return axios.get(`${process.env.REACT_APP_WOOCOMMERCE_API_ENDPOINT}/wp-json/wc/v3/payment_gateways`, defaultHeaders);
 };
 
 

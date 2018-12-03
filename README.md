@@ -18,3 +18,17 @@ You need to have a Woocommerce instance running and also created a ``client_id``
 This is a free time project so it's currently on development. Not ready for production.
 If you want to participate, feel free to contact me.
 
+## Woocommerce Notes
+
+In order to avoid problems like :
+
+```
+Access to XMLHttpRequest at 'https://HOST/wp-json/wc/v3/products/categories?per_page=100' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field X-XSRF-TOKEN is not allowed by Access-Control-Allow-Headers in preflight response.
+
+```
+
+You should add you the Woocommerce headers this line:
+
+```
+header('Access-Control-Allow-Headers: Content-Type, x-xsrf-token, x_csrftoken');
+```
