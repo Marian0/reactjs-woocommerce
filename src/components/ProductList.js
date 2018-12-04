@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Spin, List, Card, Button } from 'antd';
+import { Spin, List, Card, Button, Badge } from 'antd';
 import { connect } from 'react-redux';
 import { addToCart } from "../actions";
 import { getProductsByCategory } from "../remotes/woocommerce";
@@ -46,6 +46,15 @@ class ProductList extends Component {
 
     }
 
+    renderPrices = (item) => {
+        if (parseFloat(item.price) === parseFloat(item.regular_price)) {
+            return <span>$ {item.price}</span>;
+        } else {
+            var discount = (1 - (parseInt(item.price)/parseInt(item.regular_price)))*100;
+            return (<span><Badge count={`${discount.toFixed(0)}%`}  /> | <strike>$ {item.regular_price}</strike> | <b>$ {item.price}</b></span>);
+        }
+    };
+
     renderProducts = () => {
 
         if (this.state.loading) {
@@ -64,17 +73,22 @@ class ProductList extends Component {
                 dataSource={this.state.products}
                 renderItem={item => (
                     <List.Item>
-                        <Card
-                            cover={<img alt="product" src={item.images[0] ? item.images[0].src : no_image} />}
-                            actions={[
-                                <Button type="primary" icon="plus" onClick={() => this.props.addToCart(item)}>Add to Cart</Button>
-                            ]}
-                        >
-                            <Meta
-                                title={item.name}
-                                description={`$ ${item.price}`}
-                            />
-                        </Card>
+                        {
+                            item.price > 0 &&
+                            <Card
+                                
+                                cover={<img alt="product" src={item.images[0] ? item.images[0].src : no_image} />}
+                                actions={[
+                                    <Button type="primary" icon="plus" onClick={() => this.props.addToCart(item)}>Add to Cart</Button>
+                                ]}
+                            >
+                            
+                                <Meta
+                                    title={item.name}
+                                    description={this.renderPrices(item)}
+                                />
+                            </Card> 
+                        }
                     </List.Item>
                 )}
             />

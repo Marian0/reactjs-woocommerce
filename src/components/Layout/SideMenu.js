@@ -66,14 +66,16 @@ class SideMenu extends Component {
             >
                 {
                     this.state.categories.map((category) => {
-                        return (
+                        return ( category.count > 0 && 
                             <Menu.Item key={category.id}>
                                 <Link to={`/category/${category.id}`}>
                                     {
                                         category.image &&
                                         <img src={category.image.src} alt={category.name} style={categoryImage}/>
                                     }
-                                    {category.name}
+                                    { 
+                                        category.name + "  (" + category.count + ")" 
+                                    } 
                                 </Link>
                             </Menu.Item>
                         );
