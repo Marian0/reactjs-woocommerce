@@ -1,5 +1,4 @@
 const addToCart = (product) => {
-
     //Save just the important
     var p = {};
 
@@ -8,7 +7,6 @@ const addToCart = (product) => {
     p.price = parseFloat(product.price);
     p.images = product.images;
 
-
     return {
         type: 'ADD_TO_CART',
         product: p
@@ -16,22 +14,25 @@ const addToCart = (product) => {
 };
 
 const removeFromCart = (product) => {
-
     return {
         type: 'REMOVE_FROM_CART',
         product
     }
-
 };
 
+const removeProductItem = (product) => {
+    return {
+        //DECREASE PRODUCT CART
+        type: 'REMOVE_PRODUCT_ITEM',
+        product
+    }
+};
 
 const substractProduct = (product) => {
-
     return {
         type: 'SUBSTRACT_FROM_CART',
         product
     }
-
 };
 
 const loadCartProducts = () => {
@@ -40,5 +41,4 @@ const loadCartProducts = () => {
     }
 };
 
-
-export {addToCart, removeFromCart, substractProduct, loadCartProducts};
+export { addToCart, removeFromCart, substractProduct, loadCartProducts, removeProductItem };

@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
-import {Spin, List, Card, Button} from 'antd';
+import React, { Component } from 'react';
+import { Spin, List, Card, Button } from 'antd';
 import { connect } from 'react-redux';
-import {addToCart} from "../actions";
-import {getProductsByCategory} from "../remotes/woocommerce";
+import { addToCart } from "../actions";
+import { getProductsByCategory } from "../remotes/woocommerce";
+import no_image from '../img/no_image.jpg'
 
-const {Meta} = Card;
+const { Meta } = Card;
 
 class ProductList extends Component {
 
@@ -49,7 +50,7 @@ class ProductList extends Component {
 
         if (this.state.loading) {
             return (
-                <Spin size="large" tip="Loading Products..."/>
+                <Spin size="large" tip="Loading Products..." />
             );
         }
 
@@ -59,14 +60,14 @@ class ProductList extends Component {
 
         return (
             <List
-                grid={{gutter: 16, column: 3}}
+                grid={{ gutter: 16, column: 3 }}
                 dataSource={this.state.products}
                 renderItem={item => (
                     <List.Item>
                         <Card
-                            cover={<img alt="example" src={item.images[0].src}/>}
+                            cover={<img alt="product" src={item.images[0] ? item.images[0].src : no_image} />}
                             actions={[
-                                <Button type="primary" icon="plus" onClick={() => this.props.addToCart(item) }>Add to Cart</Button>
+                                <Button type="primary" icon="plus" onClick={() => this.props.addToCart(item)}>Add to Cart</Button>
                             ]}
                         >
                             <Meta

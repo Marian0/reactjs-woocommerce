@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware, combineReducers} from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
 /**
@@ -21,7 +21,7 @@ const cart = (state = [], action) => {
 
     } else if (action.type === 'ADD_TO_CART') {
 
-        const {product} = action;
+        const { product } = action;
         let exists = false;
 
         const changed = state.map((e) => {
@@ -46,6 +46,13 @@ const cart = (state = [], action) => {
         return state.filter((e) => {
             return e.id !== action.product.id;
         });
+    } else if (action.type === 'REMOVE_PRODUCT_ITEM') {
+        return state.map(e => {
+            if (e.id === action.product.id && e.qty > 0) {
+                e.qty--;
+            }
+            return e;
+        });
     }
 
     return state;
@@ -68,7 +75,8 @@ const updateLocalStorageCart = (store) => (next) => (action) => {
     let result = next(action);
 
     if (action.type === 'ADD_TO_CART' ||
-        action.type === 'REMOVE_FROM_CART') {
+        action.type === 'REMOVE_FROM_CART' ||
+        action.type === 'REMOVE_PRODUCT_ITEM') {
 
         try {
             localStorage.setItem('cart', JSON.stringify(store.getState()['cart']));
