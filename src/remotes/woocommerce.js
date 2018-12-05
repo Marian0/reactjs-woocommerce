@@ -19,7 +19,7 @@ let defaultHeaders = {
  */
 const getCategories = () => {
     defaultHeaders.params = {
-        per_page: 100
+        per_page: process.env.REACT_APP_WOOCOMMERCE_CATEGORIES_PER_PAGE
     };
 
     return axios.get(`${process.env.REACT_APP_WOOCOMMERCE_API_ENDPOINT}/wp-json/wc/v3/products/categories`, defaultHeaders);
@@ -30,14 +30,23 @@ const getCategories = () => {
  * @param category_id
  * @returns {AxiosPromise<any>}
  */
-const getProductsByCategory = (category_id) => {
+const getProductsByCategory = (category, page, per_page) => {
 
     defaultHeaders.params = {
-        category: category_id,
-        per_page: 100
+        orderby: 'title',
+        order: 'asc', 
+        status: 'publish',
+        category,
+        per_page,
+        page,
     };
 
     return axios.get(`${process.env.REACT_APP_WOOCOMMERCE_API_ENDPOINT}/wp-json/wc/v3/products`, defaultHeaders)
+};
+
+const getCategoryById = (category_id) => {
+
+    return axios.get(`${process.env.REACT_APP_WOOCOMMERCE_API_ENDPOINT}/wp-json/wc/v3/products/categories/${category_id}`, defaultHeaders)
 };
 
 /**
@@ -49,4 +58,4 @@ const getPaymentInfo = () => {
 };
 
 
-export {getPaymentInfo, getProductsByCategory, getCategories};
+export {getPaymentInfo, getProductsByCategory, getCategories, getCategoryById};
